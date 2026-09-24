@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: agencydesk
+      POSTGRES_USER: agencydesk
+      POSTGRES_PASSWORD: agencydesk
+    ports:
+      - "5432:5432"
+    volumes:
+      - agencydesk_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agencydesk -d agencydesk"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  agencydesk_pgdata:
